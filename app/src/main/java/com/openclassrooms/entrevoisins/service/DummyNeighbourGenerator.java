@@ -8,6 +8,14 @@ import java.util.List;
 
 public abstract class DummyNeighbourGenerator {
 
+    static List<Neighbour> generateNeighbours() {
+        return new ArrayList<>(DUMMY_NEIGHBOURS);
+    }
+
+    static List<Neighbour> generateFavNeighbours() {
+        return new ArrayList<>(FAV_NEIGHBOURS);
+    }
+
     public static List<Neighbour> DUMMY_NEIGHBOURS = Arrays.asList(
             new Neighbour(1, "Caroline", "http://i.pravatar.cc/150?u=a042581f4e29026704d"),
             new Neighbour(2, "Jack", "http://i.pravatar.cc/150?u=a042581f4e29026704e"),
@@ -23,7 +31,10 @@ public abstract class DummyNeighbourGenerator {
             new Neighbour(12, "Ludovic", "http://i.pravatar.cc/150?u=a042581f3e39026702d")
     );
 
-    static List<Neighbour> generateNeighbours() {
-        return new ArrayList<>(DUMMY_NEIGHBOURS);
-    }
+    public static List<Neighbour> FAV_NEIGHBOURS = Arrays.asList(
+            new Neighbour(1, "Caroline", "http://i.pravatar.cc/150?u=a042581f4e29026704d"),
+            new Neighbour(2, "Jack", "http://i.pravatar.cc/150?u=a042581f4e29026704e"),
+            new Neighbour(3, "Chloé", "http://i.pravatar.cc/150?u=a042581f4e29026704f")
+
+    );
 }

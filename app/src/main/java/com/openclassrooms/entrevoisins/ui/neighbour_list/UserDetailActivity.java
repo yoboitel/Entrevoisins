@@ -12,6 +12,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.model.Neighbour;
+
+import java.util.List;
 
 public class UserDetailActivity extends AppCompatActivity {
 
@@ -51,17 +54,12 @@ public class UserDetailActivity extends AppCompatActivity {
 
         //GERE LES FAVORIS
         fabFavorite = findViewById(R.id.floatingActionButton);
+        fabFavorite.setImageDrawable(getDrawable(R.drawable.star_filled));
         fabFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isFavorite == false) {
-                    fabFavorite.setImageDrawable(getDrawable(R.drawable.star_filled));
-                    isFavorite = true;
-                }
-                else if (isFavorite == true) {
-                    fabFavorite.setImageDrawable(getDrawable(R.drawable.star_empty));
-                    isFavorite = false;
-                }
+                Toast.makeText(UserDetailActivity.this, "ADDED TO FAVS CLICKED", Toast.LENGTH_SHORT).show();
+
             }
         });
 
