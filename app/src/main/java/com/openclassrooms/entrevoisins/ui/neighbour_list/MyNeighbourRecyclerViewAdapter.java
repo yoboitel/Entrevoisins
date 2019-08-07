@@ -65,6 +65,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 Intent go_detail = new Intent(v.getContext(), UserDetailActivity.class);
                 go_detail.putExtra("name", mNeighbours.get(position).getName());
                 go_detail.putExtra("avatar_url", mNeighbours.get(position).getAvatarUrl());
+                go_detail.putExtra("id", String.valueOf(mNeighbours.get(position).getId()));
                 v.getContext().startActivity(go_detail);
 
             }

@@ -12,7 +12,7 @@ public abstract class DummyNeighbourGenerator {
         return new ArrayList<>(DUMMY_NEIGHBOURS);
     }
 
-    static List<Neighbour> generateFavNeighbours() {
+    public static List<Neighbour> generateFavNeighbours() {
         return new ArrayList<>(FAV_NEIGHBOURS);
     }
 
@@ -30,11 +30,8 @@ public abstract class DummyNeighbourGenerator {
             new Neighbour(11, "Patrick", "http://i.pravatar.cc/150?u=a042581f4e29026702d"),
             new Neighbour(12, "Ludovic", "http://i.pravatar.cc/150?u=a042581f3e39026702d")
     );
-
+    //ON CREE LA LISTE DES FAVORIS
     public static List<Neighbour> FAV_NEIGHBOURS = Arrays.asList(
-            new Neighbour(1, "Caroline", "http://i.pravatar.cc/150?u=a042581f4e29026704d"),
-            new Neighbour(2, "Jack", "http://i.pravatar.cc/150?u=a042581f4e29026704e"),
-            new Neighbour(3, "Chloé", "http://i.pravatar.cc/150?u=a042581f4e29026704f")
 
     );
 }

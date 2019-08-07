@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.openclassrooms.entrevoisins.service.DummyNeighbourGenerator;
+
 
 public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
 
@@ -29,7 +31,7 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
             return NeighbourFragment.newInstance();
         }
         else if (position == 1){
-            Log.d("MSG", "Favs Neighbours");
+            Log.d("MSG", "Fav List");
             return FavNeighbourFragment.newInstance();
         }
         else return NeighbourFragment.newInstance();
