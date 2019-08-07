@@ -42,6 +42,16 @@ public class UserDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_detail);
         getSupportActionBar().hide();
 
+        //CHECK IN NEIGHBOUR IS ALREADY IN FAVS AND DISABLE BUTTON OR NOT
+        fabFavorite = findViewById(R.id.floatingActionButton);
+        Neighbour nouvoVoisin = new Neighbour(Integer.parseInt(getIntent().getStringExtra("id")), getIntent().getStringExtra("name"), getIntent().getStringExtra("avatar_url"));
+        if (FavNeighbourFragment.mNeighbours.contains(nouvoVoisin)) {
+            fabFavorite.setEnabled(false);
+            fabFavorite.setImageDrawable(getDrawable(R.drawable.star_filled));
+        } else {
+            fabFavorite.setEnabled(true);
+            fabFavorite.setImageDrawable(getDrawable(R.drawable.star_empty));
+        }
 
         //RETOUR QUAND ON CLIQUE SUR LA FLECHE RETOUR
         mRetour = findViewById(R.id.ivBackArrow);
@@ -65,15 +75,15 @@ public class UserDetailActivity extends AppCompatActivity {
                 .into(mUserPic);
 
         //GERE LES FAVORIS
-        fabFavorite = findViewById(R.id.floatingActionButton);
-        fabFavorite.setImageDrawable(getDrawable(R.drawable.star_filled));
         fabFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(UserDetailActivity.this, "ADDED TO FAVS CLICKED", Toast.LENGTH_SHORT).show();
 
+                fabFavorite.setImageDrawable(getDrawable(R.drawable.star_filled));
+                fabFavorite.setEnabled(false);
+
                 //RECUP LE NOM ET LA PHOTO ET l'ID ORIGINAL ET CREER UN MODEL "Neighbour" qui sera add a la liste des favs
-                Neighbour nouvoVoisin = new Neighbour(Integer.parseInt(getIntent().getStringExtra("id")), getIntent().getStringExtra("name"), getIntent().getStringExtra("avatar_url"));
                 FavNeighbourFragment.mNeighbours.add(nouvoVoisin);
                 //ON ACTUALISE L'ADAPTER DE LA FAV LISTE DU FRAGMENT POUR VOIR L'ITEM APPARAITRE
                 FavNeighbourFragment.mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(FavNeighbourFragment.mNeighbours));
