@@ -1,6 +1,7 @@
 
 package com.openclassrooms.entrevoisins.neighbour_list;
 
+import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
@@ -8,6 +9,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity;
+import com.openclassrooms.entrevoisins.utils.ClickItemAction;
 import com.openclassrooms.entrevoisins.utils.DeleteViewAction;
 
 import org.junit.Before;
@@ -51,8 +53,7 @@ public class NeighboursListTest {
     @Test
     public void myNeighboursList_shouldNotBeEmpty() {
         // First scroll to the position that needs to be matched and click on it.
-        onView(ViewMatchers.withId(R.id.list_neighbours))
-                .check(matches(hasMinimumChildCount(1)));
+        onView(ViewMatchers.withId(R.id.list_neighbours)).check(matches(hasMinimumChildCount(1)));
     }
 
     /**
@@ -67,5 +68,51 @@ public class NeighboursListTest {
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
         // Then : the number of element is 11
         onView(ViewMatchers.withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT-1));
+    }
+
+    /**
+     * When we click on an item, the details screen is launched
+     */
+    @Test
+    public void myNeighboursList_onItemCLick_OpenDetailsScreen() {
+        // When perform a click on a item
+        onView(ViewMatchers.withId(R.id.list_neighbours))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, new ClickItemAction()));
+        // Then : Verify Username is displayed so it means Details Screen is displayed
+        onView(ViewMatchers.withId(R.id.tvUserName)).check(matches(ViewMatchers.isDisplayed()));
+    }
+
+    /**
+     * When details screen is launched, the username textview is filled
+     */
+    @Test
+    public void myNeighboursList_OpenDetailsScreen_UsernameIsFilled() {
+        // When perform a click on item 0
+        onView(ViewMatchers.withId(R.id.list_neighbours))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, new ClickItemAction()));
+        // Then : Verify Username equals "Caroline" so it means the username textview is filled
+        onView(ViewMatchers.withId(R.id.tvUserName)).check(matches(ViewMatchers.withText("Caroline")));
+    }
+
+    /**
+     * Verifiy that Favs tab only contains favs users
+     */
+    @Test
+    public void FavsTab_OnlyContainFavsUSers() {
+        // When perform a click on a item 0
+        onView(ViewMatchers.withId(R.id.list_neighbours))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, new ClickItemAction()));
+        // Then : perform a click on favorite fab of item 0 Details Screen
+        onView(ViewMatchers.withId(R.id.floatingActionButton)).perform(ViewActions.click());
+        // Then : Go Back to Main Screen
+        onView(ViewMatchers.isRoot()).perform(ViewActions.pressBack());
+        // Then : perform a swipe to Favs Tab
+        onView(ViewMatchers.isRoot()).perform(ViewActions.swipeLeft());
+        // Then : perform a click on a item 0 of favs tab to open Details Screen
+        onView(ViewMatchers.withId(R.id.list_neighbours_fav))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, new ClickItemAction()));
+        // Then : Verify Username equals "Caroline" so it means the she's added to favs
+        onView(ViewMatchers.withId(R.id.tvUserName)).check(matches(ViewMatchers.withText("Caroline")));
+
     }
 }
